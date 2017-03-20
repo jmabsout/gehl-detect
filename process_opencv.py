@@ -9,7 +9,9 @@ import imutils
 import cv2
 import datetime
 
-image_dir = "test_set/"
+#figure out how to use trained svm
+svm_trained = "svm_data.dat"
+image_dir = "images/"
 
 # construct the argument parse and parse the arguments - useful for invoking from shell
 # ap = argparse.ArgumentParser()
@@ -27,7 +29,7 @@ for imagePath in paths.list_images(image_dir):
     print imagePath
     image = cv2.imread(imagePath)
     print image
-    image = imutils.resize(image, width=min(800, image.shape[1]))
+    image = imutils.resize(image, width=min(400, image.shape[1]))
     orig = image.copy()
 
     # detect people in the image

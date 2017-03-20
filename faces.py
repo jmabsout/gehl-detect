@@ -6,8 +6,8 @@ import imutils
 face_cascade = cv2.CascadeClassifier('ocv2/opencv/data/haarcascades/haarcascade_frontalface_alt2.xml')
 eye_cascade = cv2.CascadeClassifier('ocv2/opencv/data/haarcascades/haarcascade_eye.xml')
 
-image_dir = "test_set/"
-test_img = "test_set/G0061813.jpg"
+image_dir = "images/"
+test_img = "images/G0061813.jpg"
 
 for imagePath in paths.list_images(image_dir):
 
