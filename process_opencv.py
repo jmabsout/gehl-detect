@@ -10,8 +10,11 @@ import cv2
 import datetime
 
 #figure out how to use trained svm
-svm_trained = "svm_data.dat"
-image_dir = "images/"
+# svm_trained = "svm_data.dat"
+image_dir = "t3"
+# image_dir = "training/INRIAPerson/Train/pos"
+
+
 
 # construct the argument parse and parse the arguments - useful for invoking from shell
 # ap = argparse.ArgumentParser()
@@ -29,13 +32,13 @@ for imagePath in paths.list_images(image_dir):
     print imagePath
     image = cv2.imread(imagePath)
     print image
-    image = imutils.resize(image, width=min(400, image.shape[1]))
+    image = imutils.resize(image, width=min(1400, image.shape[1]))
     orig = image.copy()
 
     # detect people in the image
     start = datetime.datetime.now() # sets up a timer
     (rects, weights) = hog.detectMultiScale(image, winStride=(4, 4),
-                                            padding=(8, 8), scale=1.5)
+                                            padding=(4, 4), scale=1.5)
 
     print("[INFO] detection took: {}s".format(
         (datetime.datetime.now() - start).total_seconds()))
@@ -62,4 +65,4 @@ for imagePath in paths.list_images(image_dir):
     # show the output images
     cv2.imshow("Before NMS", orig)
     cv2.imshow("After NMS", image)
-    cv2.waitKey(0)
+    cv2.waitKey(1)
