@@ -1,5 +1,7 @@
-# python file containing functions for ped detection, image processing, etc.
-# meant to serve as toolkit for all methods and scripts written thus far
+'''
+python file containing functions for ped detection, image processing, etc.
+'''
+
 
 import numpy as np
 import imutils

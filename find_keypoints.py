@@ -13,14 +13,15 @@ import json
 # set up a counter or something, create a list of all the counts at a given interval, maybe average that? and have that
 # be the count of people for a given period of time
 
-vidPath = "./t3/GOPR2201.MP4"
+vidPath = "examples/ref_video.MP4"
 video = cv2.VideoCapture(vidPath)
 
-imagePath = "/Users/Mario/Documents/mit-github-projects/gehl/Gehl/t3/G0082212.JPG"
+reference_image = "examples/reference_image.JPG"
 
-img = cv2.imread(imagePath)
+img = cv2.imread(reference_image)
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+# NOTE sift is only availble if you build from source and enable the extra modules.
 sift = cv2.xfeatures2d.SIFT_create()
 kp = sift.detect(gray,None)
 img=cv2.drawKeypoints(gray,kp,img)

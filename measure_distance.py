@@ -1,4 +1,11 @@
 # a file to refactor distance_between.py and gehl_detect.py; goal is to move most functions to gehl_detect.py and have this file primarily hold parameter definitions
+'''
+This file demonstrates how you can identify persons and calculate their position relative to the camera and a reference object.
+This assumes you have a reference object with a face a known distance from the camera, and you know the position of a reference
+point within the image. The examples/measure_disatance/in contains images that fit this description, and the out/ directory
+shows the results, both as images and x,y plots that show position relative to the camera.
+'''
+
 
 # import libraries
 import numpy as np
@@ -13,9 +20,9 @@ import gehl_detect as gd
 
 # parameter definitions
 
-img_dir = "/Users/Mario/Documents/mit-github-projects/gehl/Gehl/t4/"
-reference_img = "/Users/Mario/Documents/mit-github-projects/gehl/Gehl/t3old/G0082212_red2.jpg"
-face_cascade= cv2.CascadeClassifier("/Users/Mario/Documents/mit-github-projects/gehl/Gehl/opencv/data/haarcascades_cuda/haarcascade_frontalface_alt2.xml")
+img_dir = '/Users/marioag/Dropbox (Personal)/documents/mit-github-projects/gehl/Gehl/t4'
+reference_img = '/Users/marioag/Dropbox (Personal)/documents/mit-github-projects/gehl/Gehl/t3/G0082212.JPG'
+face_cascade = cv2.CascadeClassifier('/Users/marioag/Dropbox (Personal)/documents/mit-github-projects/gehl/Gehl/opencv/data/haarcascades_cuda/haarcascade_frontalface_alt2.xml')
 
 images = gd.get_jpgs(img_dir)
 # print images
@@ -38,8 +45,6 @@ refObjPos = (765996.22, 2955900.69)
 image = cv2.imread(reference_img)
 
 height, width, img_center, img_cent_orig = gd.get_image_statistics(image)
-
-
 
 # get angle between midpoint of reference object and center of image
 angle = refObjMid[0]*90/img_center
@@ -72,7 +77,7 @@ for each in images:
     # print "inchesF:  ", inches_f
     # print faceWidth, focalLength_f, focalLength_r, inches_f
 
-
+    # this block calculate the distance between the detected faces and the camera; you can print or print to file
     # faceWidth = (marker[0][2] - marker[0][0])
     # focalLength = (faceWidth * KNOWN_DISTANCE_f) / KNOWN_WIDTH_f
     # focalLength_r = (refWidth * KNOWN_DISTANCE_r) / KNOWN_WIDTH_r
@@ -111,17 +116,27 @@ for each in images:
     # plt.grid()
 
     # plt.show()
-    plt.savefig("tha_image{}.png".format(i))
+    # outputs the accompanying location plot; this assumes you have properly supplied
+    # a reference image and a reference object within that image.
+
+    plt.savefig("/Users/marioag/Documents/GitHub/gehl-detect/out/distance/plot{}.png".format(i))
     i += 1
     print i
     # resizes images so it's easier to see on screen, shows image
     cv2.putText(img, "fname %s" % (str(each)),
                 (img.shape[1] - 600, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX,
                 1.0, (0, 255, 0), 3)
-    img = imutils.resize(img, width=min(1000, img.shape[1]))
-    cv2.imshow("image", img)
+    img = imutils.resize(img, width=min(2000, img.shape[1]))
+
+    # as mentioned in find_features.py, your os/the way you installed ocv may preclude
+    # your ability to show/destroy/pass on images. saving should always work though.
+        
+    # cv2.imshow("image", img)
+    # cv2.waitKey(1)
+    # cv2.destroyAllWindows()
 
     # saves image to disk
-    # cv2.imwrite("image{}.png".format(i), img)
-    cv2.waitKey(1)
-    cv2.destroyAllWindows()
+    cv2.imwrite("/Users/marioag/Documents/GitHub/gehl-detect/out/distance/image{}.png".format(i), img)
+    
+
+    
