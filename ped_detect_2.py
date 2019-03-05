@@ -10,15 +10,17 @@ import gehl_detect as gd
 import json
 # same as process_video.py but also using alternate haarcascades classifiers... should be extended to use different classifiers to measure different features and finding overlap using nms
 # Macintosh:opencv-haar-classifier-training marioag$ opencv_traincascade -data classifier -vec samples.vec -bg negatives.txt -numStages 20 -minHitRate 0.999 -maxFalseAlarmRate 0.5 -numPos 1000 -numNeg 600 -w 80 -h 40 -mode ALL -precalcValBufSize 1024 -precalcIdxBufSize 1024
-images = "/Users/Mario/Desktop/originalPics/2002/07/28/big/"
+# images = "/Users/Mario/Desktop/originalPics/2002/07/28/big/"
 
-imgs = gd.get_jpgs(images)
-print imgs
-Lear_cascade = cv2.CascadeClassifier("/Users/Mario/Documents/mit-github-projects/gehl/Gehl/opencv/data/haarcascades/haarcascade_mcs_leftear.xml")
-face_cascade = cv2.CascadeClassifier("/Users/Mario/Documents/mit-github-projects/gehl/Gehl/opencv/data/haarcascades/haarcascade_frontalface_alt2.xml")
+# imgs = gd.get_jpgs(images)
+# print imgs
+Lear_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_fullbody.xml')
+face_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_profileface.xml')
 # bod_cascade = cv2.CascadeClassifier("/Users/Mario/Documents/mit-github-projects/gehl/Gehl/opencv/data/lbpcascades/lbpcascade_frontalface.xml")
-# vidPath = "/Users/Mario/Documents/mit-github-projects/gehl/Gehl/t3old/GOPR2201.MP4"
-vidPath = "/Users/Mario/Desktop/IMG_6452.m4v"
+
+
+# read a video from file
+vidPath = "examples/ref_video.MP4"
 video = cv2.VideoCapture(vidPath)
 
 hog = cv2.HOGDescriptor()
@@ -30,6 +32,7 @@ coords = {}
 # dictionary to hold the number of nms boxes per timestamp
 count = {}
 
+j=0
 while True:
 
     start = datetime.datetime.now()  # sets up a timer
@@ -74,7 +77,8 @@ while True:
 
         print count
         # print "lower center point X is: ", xA, "lower center point Y is: ", (yB + yA) / 2
-
-    cv2.imshow('img', image)
-    cv2.waitKey(1)
-    cv2.destroyAllWindows()
+    cv2.imwrite('/Users/marioag/Documents/GitHub/gehl-detect/out/find_features/vid_from_file/image{}.png'.format(j), image)
+    j +=1
+    # cv2.imshow('img', image)
+    # cv2.waitKey(1)
+    # cv2.destroyAllWindows()

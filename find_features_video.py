@@ -24,21 +24,24 @@ images = gd.get_jpgs(imageDir)
 # or with os.path.abspath() concatenation...
 
 # fface_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_frontalface_alt2.xml')
-fface_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_fullbody.xml')
+fface_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_frontalface_alt2.xml')
 pface_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_profileface.xml')
 
 hog = cv2.HOGDescriptor()
 hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
-print "starting loop over {} images...".format(len(images))
+# print "starting loop over {} images...".format(len(images))
 
 j = 0
-for each in images:
-    image = cv2.imread(each)
+cap = cv2.VideoCapture(0) # reads from webcam instead of directory of files
+while(True):
+    ret, image = cap.read()
+# for each in images:
+#     image = cv2.imread(each)
     # the image size is one of the most important parameters to tweak; the bigger it is,
     # the greater the chance that objects will be detected; however, it will result in 
     # slower processing time.
-    image = imutils.resize(image, width=min(2500, image.shape[1]))
+    image = imutils.resize(image, width=min(1500, image.shape[1]))
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     fface = fface_cascade.detectMultiScale(gray, 1.3, 5) #img, scale factor, neighbors
@@ -85,5 +88,5 @@ for each in images:
     # cv2.waitKey(1)
     # cv2.destroyAllWindows()
     print "reviewed image {}".format(str(j))
-    cv2.imwrite("/Users/marioag/Documents/GitHub/gehl-detect/out/find_features/outside/padding88/image{}.png".format(j), image)
+    cv2.imwrite("/Users/marioag/Documents/GitHub/gehl-detect/out/find_features/webcam/image{}.png".format(j), image)
     j += 1
