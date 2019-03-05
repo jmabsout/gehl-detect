@@ -8,9 +8,9 @@ import glob
 import gehl_detect as gd
 
 cwd = os.getcwd()
-print cwd
+print (cwd)
 
-imageDir = '/Users/marioag/Dropbox (Personal)/documents/mit-github-projects/gehl/Gehl/t3/'
+imageDir = 'C:\Users\Lenovo User\Dropbox (MIT)\Joude Spring 2019\03_Crowd Sourced City\geotag exercise'
 
 
 os.chdir(imageDir)
@@ -24,8 +24,8 @@ images = gd.get_jpgs(imageDir)
 # or with os.path.abspath() concatenation...
 
 # fface_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_frontalface_alt2.xml')
-fface_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_fullbody.xml')
-pface_cascade = cv2.CascadeClassifier('/Users/marioag/Documents/GitHub/gehl-detect/ocv2/opencv/data/haarcascades/haarcascade_profileface.xml')
+fface_cascade = cv2.CascadeClassifier('C:\Users\Lenovo User\Desktop\classifiers\opencv-master\data\haarcascades/haarcascade_fullbody.xml')
+pface_cascade = cv2.CascadeClassifier('C:\Users\Lenovo User\Desktop\classifiers\opencv-master\data\haarcascades/haarcascade_profileface.xml')
 
 hog = cv2.HOGDescriptor()
 hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
@@ -85,5 +85,5 @@ for each in images:
     # cv2.waitKey(1)
     # cv2.destroyAllWindows()
     print "reviewed image {}".format(str(j))
-    cv2.imwrite("/Users/marioag/Documents/GitHub/gehl-detect/out/find_features/outside/padding88/image{}.png".format(j), image)
+    cv2.imwrite("C:\Users\Lenovo User\Dropbox (MIT)\Joude Spring 2019\03_Crowd Sourced City\github output".format(j), image)
     j += 1
